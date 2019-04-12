@@ -13,12 +13,14 @@ import java.util.List;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.eventsViewHolder> {
 
-    Context eContext;
-    List<event> eData;
+    private Context eContext;
+    private List<event> eData;
+    private OnEventListner onEventListner;
 
-    public EventsAdapter(Context eContext, List<event> eData) {
+    public EventsAdapter(Context eContext, List<event> eData, OnEventListner onEventListner) {
         this.eContext = eContext;
         this.eData = eData;
+        this.onEventListner = onEventListner;
     }
 
     @NonNull
@@ -27,7 +29,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.eventsView
 
         LayoutInflater inflater = LayoutInflater.from(eContext);
         View v = inflater.inflate(R.layout.event_item, viewGroup, false);
-        return new eventsViewHolder(v);
+        return new eventsViewHolder(v, onEventListner);
     }
 
     @Override
@@ -43,19 +45,34 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.eventsView
         return eData.size();
     }
 
-    public class eventsViewHolder extends RecyclerView.ViewHolder{
+    public class eventsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView background, logo;
         TextView title, date;
+        OnEventListner onEventListner;
 
-        public eventsViewHolder(@NonNull View itemView) {
+        public eventsViewHolder(@NonNull View itemView, OnEventListner onEventListner) {
             super(itemView);
 
             background = itemView.findViewById(R.id.event_background);
             logo = itemView.findViewById(R.id.event_logo);
             title = itemView.findViewById(R.id.event_title);
             date = itemView.findViewById(R.id.event_date);
+            this.onEventListner = onEventListner;
+
+            // Attach event listener to event
+            itemView.setOnClickListener(this);
         }
+
+        // Event listener
+        @Override
+        public void onClick(View v) {
+            onEventListner.onEventClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnEventListner{
+        void onEventClick(int position);
     }
 
 }

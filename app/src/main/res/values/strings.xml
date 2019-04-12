@@ -3,7 +3,6 @@
     <string name="peace_be_upon_you">Peace be Upon You</string>
     <string name="splash_logo_description">Eventon</string>
     <string name="splash_loading_text">Loading Application...</string>
-    <string name="event_button_text">VIEW</string>
     <string name="event_name">EVENT NAME HERE</string>
     <string name="event_date">00 MON YEAR</string>
 </resources>
