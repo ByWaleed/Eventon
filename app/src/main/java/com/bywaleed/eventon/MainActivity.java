@@ -6,15 +6,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.Adapter;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements EventsAdapter.OnEventListner {
 
-    private List<event> eList = new ArrayList<>();
+    private List<Event> eList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +22,11 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.OnE
         /* External API could be used here to fetch the data. */
 
         // Creating events
-        eList.add(new event(R.drawable.bg1, R.drawable.profile, "HUDDERSFIELD UNI EVENT 1", "Monday 01 April"));
-        eList.add(new event(R.drawable.bg2, R.drawable.profile, "HUDDERSFIELD UNI EVENT 2", "Monday 02 April"));
-        eList.add(new event(R.drawable.bg3, R.drawable.profile, "HUDDERSFIELD UNI EVENT 3", "Monday 03 April"));
-        eList.add(new event(R.drawable.bg4, R.drawable.profile, "HUDDERSFIELD UNI EVENT 4", "Monday 04 April"));
-        eList.add(new event(R.drawable.bg5, R.drawable.profile, "HUDDERSFIELD UNI EVENT 5", "Monday 05 April"));
+        eList.add(new Event(R.drawable.bg1, R.drawable.profile, "HUD UNI EVENT 1", "Monday 01 April", "Some Description Here"));
+        eList.add(new Event(R.drawable.bg2, R.drawable.profile, "HUD UNI EVENT 2", "Monday 02 April", "Some Description Here"));
+        eList.add(new Event(R.drawable.bg3, R.drawable.profile, "HUD UNI EVENT 3", "Monday 03 April", "Some Description Here"));
+        eList.add(new Event(R.drawable.bg4, R.drawable.profile, "HUD UNI EVENT 4", "Monday 04 April", "Some Description Here"));
+        eList.add(new Event(R.drawable.bg5, R.drawable.profile, "HUD UNI EVENT 5", "Monday 05 April", "Some Description Here"));
 
         // Setting Events Recyclerview
         RecyclerView recyclerView = findViewById(R.id.events_rv_list);
@@ -38,14 +36,15 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.OnE
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    // Implements Event listener for clicking on a event
+    // Implements Event listener for clicking on a Event
     @Override
     public void onEventClick(int position) {
-        eList.get(position);
-        Log.d("onEventClick", "onEventClick() returned: " + eList.get(position).title);
+        Event selected = eList.get(position);
+        Log.d("onEventClick", "onEventClick() returned: " + selected.title + " - " + selected.description);
 
-        // Create & pass data to intent here
+        // Create Intent, pass data and show activity
         Intent intent = new Intent(this, SingleEvent.class);
+        intent.putExtra("SelectedEvent", selected);
         startActivity(intent);
     }
 }

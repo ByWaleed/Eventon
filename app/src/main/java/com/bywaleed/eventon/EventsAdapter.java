@@ -14,10 +14,10 @@ import java.util.List;
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.eventsViewHolder> {
 
     private Context eContext;
-    private List<event> eData;
+    private List<Event> eData;
     private OnEventListner onEventListner;
 
-    public EventsAdapter(Context eContext, List<event> eData, OnEventListner onEventListner) {
+    public EventsAdapter(Context eContext, List<Event> eData, OnEventListner onEventListner) {
         this.eContext = eContext;
         this.eData = eData;
         this.onEventListner = onEventListner;
@@ -60,7 +60,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.eventsView
             date = itemView.findViewById(R.id.event_date);
             this.onEventListner = onEventListner;
 
-            // Attach event listener to event
+            // Attach Event listener to Event
             itemView.setOnClickListener(this);
         }
 

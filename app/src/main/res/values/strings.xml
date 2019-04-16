@@ -1,11 +1,10 @@
 <resources>
     <string name="app_name">Eventon</string>
-    <string name="peace_be_upon_you">Peace be Upon You</string>
     <string name="splash_logo_description">Eventon</string>
     <string name="splash_loading_text">Loading Application...</string>
     <string name="event_name">EVENT NAME HERE</string>
     <string name="event_date">00 MON YEAR</string>
-    <string name="title_activity_single_event">SingleEvent</string>
+    <string name="title_activity_single_event">EVENT NAME HERE</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
