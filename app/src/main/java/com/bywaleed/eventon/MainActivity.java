@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.OnE
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* External API could be used here to fetch the data. */
+
         // Creating events
         eList.add(new event(R.drawable.bg1, R.drawable.profile, "HUDDERSFIELD UNI EVENT 1", "Monday 01 April"));
         eList.add(new event(R.drawable.bg2, R.drawable.profile, "HUDDERSFIELD UNI EVENT 2", "Monday 02 April"));
@@ -36,11 +38,14 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.OnE
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    // Implements Event listener for clicking on the event
+    // Implements Event listener for clicking on a event
     @Override
     public void onEventClick(int position) {
         eList.get(position);
         Log.d("onEventClick", "onEventClick() returned: " + eList.get(position).title);
+
         // Create & pass data to intent here
+        Intent intent = new Intent(this, SingleEvent.class);
+        startActivity(intent);
     }
 }
