@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 public class SingleEvent extends AppCompatActivity {
 
@@ -15,17 +16,16 @@ public class SingleEvent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Fetch Intent to det Event details
+        // Get Selected Event
         Intent intent = getIntent();
         Event selected = intent.getExtras().getParcelable("SelectedEvent");
 
         // Toolbar
         setContentView(R.layout.activity_single_event);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Event
-
+        displayEventDetails(selected);
 
         // Action bar
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -36,5 +36,14 @@ public class SingleEvent extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    public void displayEventDetails(Event event){
+        // Title
+        getSupportActionBar().setTitle(event.getTitle());
+
+        // Background Image
+        ImageView background = findViewById(R.id.event_background);
+        background.setImageResource(event.background);
     }
 }
