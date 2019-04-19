@@ -23,11 +23,11 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.OnE
 
         // Creating events
         String fake_description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-        eList.add(new Event("HUD UNI EVENT 1", fake_description, "HUDDESFIELD UNIVESITY", "01 APRIL 2019", "17:00 - 19:00", "hud.ac.uk", "HUDDESFIELD TOWN","123456,123456", "£12.00", R.drawable.bg1, R.drawable.profile));
-        eList.add(new Event("HUD UNI EVENT 2", fake_description, "HUDDESFIELD UNIVESITY", "01 APRIL 2019", "17:00 - 19:00", "hud.ac.uk", "HUDDESFIELD TOWN","123456,123456", "£12.00", R.drawable.bg2, R.drawable.profile));
-        eList.add(new Event("HUD UNI EVENT 3", fake_description, "HUDDESFIELD UNIVESITY", "01 APRIL 2019", "17:00 - 19:00", "hud.ac.uk", "HUDDESFIELD TOWN","123456,123456", "£12.00", R.drawable.bg3, R.drawable.profile));
-        eList.add(new Event("HUD UNI EVENT 4", fake_description, "HUDDESFIELD UNIVESITY", "01 APRIL 2019", "17:00 - 19:00", "hud.ac.uk", "HUDDESFIELD TOWN","123456,123456", "£12.00", R.drawable.bg4, R.drawable.profile));
-        eList.add(new Event("HUD UNI EVENT 5", fake_description, "HUDDESFIELD UNIVESITY", "01 APRIL 2019", "17:00 - 19:00", "hud.ac.uk", "HUDDESFIELD TOWN","123456,123456", "£12.00", R.drawable.bg5, R.drawable.profile));
+        eList.add(new Event("HUD UNI EVENT 1", fake_description, "HUDDESFIELD UNIVESITY", "01 APRIL 2019", "17:00 - 19:00", "http://hud.ac.uk", "HUDDESFIELD TOWN","https://goo.gl/maps/9Pik4Es3Xwu5VtGk8", "£12.00", R.drawable.bg1, R.drawable.profile));
+        eList.add(new Event("HUD UNI EVENT 2", fake_description, "HUDDESFIELD UNIVESITY", "01 APRIL 2019", "17:00 - 19:00", "http://hud.ac.uk", "HUDDESFIELD TOWN","https://goo.gl/maps/9Pik4Es3Xwu5VtGk8", "£12.00", R.drawable.bg2, R.drawable.profile));
+        eList.add(new Event("HUD UNI EVENT 3", fake_description, "HUDDESFIELD UNIVESITY", "01 APRIL 2019", "17:00 - 19:00", "http://hud.ac.uk", "HUDDESFIELD TOWN","https://goo.gl/maps/9Pik4Es3Xwu5VtGk8", "£12.00", R.drawable.bg3, R.drawable.profile));
+        eList.add(new Event("HUD UNI EVENT 4", fake_description, "HUDDESFIELD UNIVESITY", "01 APRIL 2019", "17:00 - 19:00", "http://hud.ac.uk", "HUDDESFIELD TOWN","https://goo.gl/maps/9Pik4Es3Xwu5VtGk8", "£12.00", R.drawable.bg4, R.drawable.profile));
+        eList.add(new Event("HUD UNI EVENT 5", fake_description, "HUDDESFIELD UNIVESITY", "01 APRIL 2019", "17:00 - 19:00", "http://hud.ac.uk", "HUDDESFIELD TOWN","https://goo.gl/maps/9Pik4Es3Xwu5VtGk8", "£12.00", R.drawable.bg5, R.drawable.profile));
 
         // Setting Events Recyclerview
         RecyclerView recyclerView = findViewById(R.id.events_rv_list);
