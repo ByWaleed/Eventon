@@ -5,21 +5,34 @@ import android.os.Parcelable;
 
 public class Event implements Parcelable {
 
+    String title;
+    String description;
+    String organisation;
+    String date;
+    String time;
+    String booking;
+    String location;
+    String mapLocation;
+    String price;
     int background;
     int logo;
-    String title;
-    String date;
-    String description;
+
 
     public Event() {
     }
 
-    public Event(int background, int logo, String title, String date, String description) {
+    public Event(String title, String description, String organisation, String date, String time, String booking, String location, String mapLocation, String price, int background, int logo) {
+        this.title = title;
+        this.description = description;
+        this.organisation = organisation;
+        this.date = date;
+        this.time = time;
+        this.booking = booking;
+        this.location = location;
+        this.mapLocation = mapLocation;
+        this.price = price;
         this.background = background;
         this.logo = logo;
-        this.title = title;
-        this.date = date;
-        this.description = description;
     }
 
     public int getBackground() {
@@ -54,6 +67,14 @@ public class Event implements Parcelable {
         this.date = date;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -62,12 +83,58 @@ public class Event implements Parcelable {
         this.description = description;
     }
 
+    public String getBooking() {
+        return booking;
+    }
+
+    public void setBooking(String booking) {
+        this.booking = booking;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getMapLocation() {
+        return mapLocation;
+    }
+
+    public void setMapLocation(String mapLocation) {
+        this.mapLocation = mapLocation;
+    }
+
+    public String getOrganisation() {
+        return organisation;
+    }
+
+    public void setOrganisation(String organisation) {
+        this.organisation = organisation;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     protected Event(Parcel in) {
         background = in.readInt();
         logo = in.readInt();
         title = in.readString();
         date = in.readString();
+        time = in.readString();
         description = in.readString();
+        booking = in.readString();
+        location = in.readString();
+        mapLocation = in.readString();
+        organisation = in.readString();
+        price = in.readString();
     }
 
     @Override
@@ -81,7 +148,13 @@ public class Event implements Parcelable {
         dest.writeInt(logo);
         dest.writeString(title);
         dest.writeString(date);
+        dest.writeString(time);
         dest.writeString(description);
+        dest.writeString(booking);
+        dest.writeString(location);
+        dest.writeString(mapLocation);
+        dest.writeString(organisation);
+        dest.writeString(price);
     }
 
     @SuppressWarnings("unused")
