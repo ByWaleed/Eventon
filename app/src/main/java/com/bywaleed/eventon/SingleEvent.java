@@ -1,6 +1,7 @@
 package com.bywaleed.eventon;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 
 public class SingleEvent extends AppCompatActivity {
 
+    public  Bookmarks bookmarks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,17 +35,43 @@ public class SingleEvent extends AppCompatActivity {
 
         displayEventDetails(selected);
 
-        // Action bar
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        // Bookmark Button
+        final FloatingActionButton bookmark_btn = (FloatingActionButton) findViewById(R.id.bookmark_btn);
+
+        // Load previously saved bookmarks (global)
+        bookmarks = ((EventBookmarks) getApplicationContext()).getEventBookmarks();
+
+        // Change icon if event is already booked
+        if (bookmarks.bookmarked(selected) != -1){
+            bookmark_btn.setImageResource(R.drawable.ic_bookmark_remove);
+        }
+
+        // Bookmark Button Listener
+        bookmark_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Event Bookmarked ", Snackbar.LENGTH_LONG)
+
+                String notification;
+
+                Integer eventArrayPosition = bookmarks.bookmarked(selected);
+                if (eventArrayPosition != -1){
+                    bookmarks.removeBookmark(eventArrayPosition);
+                    notification = "Event removed from your bookmarks.";
+                    bookmark_btn.setImageResource(R.drawable.ic_bookmark);
+                } else {
+                    bookmarks.addBookmark(selected);
+                    notification = "Event added to your bookmarks.";
+                    bookmark_btn.setImageResource(R.drawable.ic_bookmark_remove);
+                }
+
+                ((EventBookmarks) getApplicationContext()).setEventBookmarks(bookmarks);
+
+                Snackbar.make(view, notification, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
 
-        // Footer Navigation
+        // Footer Navigation & Listener
         BottomNavigationView footerNavigation = findViewById(R.id.footer_navigation);
         footerNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -66,18 +95,15 @@ public class SingleEvent extends AppCompatActivity {
 
     private void footerNavMaps(String uri) {
         Log.d("FooterNav", "footerNavMaps: Maps");
-
         Intent mapsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         mapsIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapsIntent);
     }
 
     private void footerNavShare(Event selected) {
-        Log.d("FooterNav", "footerNavMaps: Share");
-
         String shareText = "Don't miss out on " + selected.getTitle() + " organised by " +
                 selected.getOrganisation() + " to be hosted on " + selected.getDate() + " at " +
-                selected.getTime() + " in " + selected.getLocation() + ".\nHosted on Eventon App.";
+                selected.getTime() + " in " + selected.getLocation() + ".\n Shared by Eventon App.";
 
         Intent shareEvent = new Intent();
         shareEvent.setAction(Intent.ACTION_SEND);
@@ -87,8 +113,6 @@ public class SingleEvent extends AppCompatActivity {
     }
 
     private void footerNavBooking(String url) {
-        Log.d("FooterNav", "footerNavMaps: Booking");
-
         Uri uri = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);

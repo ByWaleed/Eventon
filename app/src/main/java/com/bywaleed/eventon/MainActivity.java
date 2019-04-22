@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.OnE
     @Override
     public void onEventClick(int position) {
         Event selected = eList.get(position);
-        Log.d("onEventClick", "onEventClick() returned: " + selected.title + " - " + selected.description);
 
         // Create Intent, pass data and show activity
         Intent intent = new Intent(this, SingleEvent.class);
