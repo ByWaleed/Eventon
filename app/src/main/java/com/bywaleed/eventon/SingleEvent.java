@@ -52,8 +52,9 @@ public class SingleEvent extends AppCompatActivity {
             public void onClick(View view) {
 
                 String notification;
-
+                bookmark_btn.setImageDrawable(null);
                 Integer eventArrayPosition = bookmarks.bookmarked(selected);
+
                 if (eventArrayPosition != -1){
                     bookmarks.removeBookmark(eventArrayPosition);
                     notification = "Event removed from your bookmarks.";
