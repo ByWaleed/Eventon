@@ -95,17 +95,15 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.drawer_all_events) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.drawer_bookmarks) {
 
-        } else if (id == R.id.nav_tools) {
+        } else if (id == R.id.drawer_about_us) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.drawer_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.drawer_send) {
 
         }
 
