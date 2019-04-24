@@ -52,9 +52,10 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        createEvents();
+        /* TODO 2 */
+        //createEvents();
 
-        setupEventsRecycler();
+        //setupEventsRecycler();
     }
 
     @Override
@@ -100,6 +101,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.drawer_bookmarks) {
 
         } else if (id == R.id.drawer_about_us) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new AboutUsFragment()).commit();
 
         } else if (id == R.id.drawer_share) {
 

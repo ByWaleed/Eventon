@@ -36,4 +36,9 @@
         "interact, and exist in space and in relation to each other. Realistic lighting shows "
         "seams, divides space, and indicates moving parts.\n\n"
     </string>
+    <string name="about_app">
+        Eventon is an android application which allows users to keep up to date with ongoing events
+        in the local community. Users can brower through events, check their details along with
+        saving events and other features.
+    </string>
 </resources>
