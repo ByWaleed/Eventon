@@ -30,7 +30,11 @@ public class BookmarksFragment extends Fragment{
 
         loadBookmarks();
 
-        initRecyclerView();
+        if (loadBookmarks()) {
+            initRecyclerView();
+        } else {
+            noBookmarkedEventsError();
+        }
 
         return view;
     }
@@ -39,12 +43,23 @@ public class BookmarksFragment extends Fragment{
     public void onResume() {
         super.onResume();
         loadBookmarks();
-        initRecyclerView();
+
+        if (loadBookmarks()) {
+            initRecyclerView();
+        } else {
+            noBookmarkedEventsError();
+        }
     }
 
-    private void loadBookmarks() {
+    private boolean loadBookmarks() {
         bookmarksList.clear();
         bookmarksList.addAll(((BookmarkedEvents) getActivity().getApplicationContext()).getEventBookmarks().getBookmarks());
+
+        if (bookmarksList.size() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void initRecyclerView() {
@@ -63,5 +78,9 @@ public class BookmarksFragment extends Fragment{
         Intent intent = new Intent(getContext(), EventDetailsActivity.class);
         intent.putExtra("SelectedEvent", selected);
         startActivity(intent);
+    }
+
+    private void noBookmarkedEventsError() {
+        view.findViewById(R.id.no_bookmarks_tv).setVisibility(View.VISIBLE);
     }
 }

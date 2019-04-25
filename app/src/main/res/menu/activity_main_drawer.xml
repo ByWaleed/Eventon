@@ -24,10 +24,6 @@
                 android:id="@+id/drawer_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/drawer_share" />
-            <item
-                android:id="@+id/drawer_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/drawer_send" />
         </menu>
     </item>
 
