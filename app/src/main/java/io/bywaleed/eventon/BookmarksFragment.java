@@ -1,5 +1,6 @@
 package io.bywaleed.eventon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,7 +16,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookmarksFragment extends Fragment {
+public class BookmarksFragment extends Fragment{
 
     private static final String TAG = "BookmarksFragment";
     private ArrayList<Event> bookmarksList = new ArrayList<>(0);
@@ -42,10 +43,18 @@ public class BookmarksFragment extends Fragment {
     private void initRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.bookmark_events_rv_list);
 
-        BookmarksAdapter adapter = new BookmarksAdapter(getContext(), bookmarksList);
+        BookmarksAdapter adapter = new BookmarksAdapter(getContext(), bookmarksList, this);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+    }
+
+    public void onBookmarkClicked(int position) {
+        Event selected = bookmarksList.get(position);
+
+        Intent intent = new Intent(getContext(), EventDetailsActivity.class);
+        intent.putExtra("SelectedEvent", selected);
+        startActivity(intent);
     }
 }

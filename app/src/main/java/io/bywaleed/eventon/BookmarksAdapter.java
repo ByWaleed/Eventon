@@ -1,8 +1,11 @@
 package io.bywaleed.eventon;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +18,18 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.bVie
 
     private ArrayList<Event> eData = new ArrayList<>(0);
     private Context eContext;
+    private BookmarksFragment bookmarksFragment;
 
-    public BookmarksAdapter(Context eContext, ArrayList<Event> eData) {
+    public BookmarksAdapter(Context eContext, ArrayList<Event> eData, BookmarksFragment bookmarksFragment) {
         this.eData = eData;
         this.eContext = eContext;
+        this.bookmarksFragment = bookmarksFragment;
     }
 
     @NonNull
     @Override
     public bViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.events_rv_item, viewGroup, false);
+        View view = LayoutInflater.from(eContext).inflate(R.layout.events_rv_item, viewGroup, false);
         bViewHolder bViewHolder = new bViewHolder(view);
         return bViewHolder;
     }
@@ -43,7 +48,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.bVie
     }
 
     // VIEW HOLDER CLASS
-    public class bViewHolder extends RecyclerView.ViewHolder  {
+    public class bViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
         ImageView background, logo;
         TextView title, date;
@@ -55,6 +60,14 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.bVie
             logo = itemView.findViewById(R.id.event_logo);
             title = itemView.findViewById(R.id.event_title);
             date = itemView.findViewById(R.id.event_date);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Log.d("bookmarkClicked", "onClick Adapter Position: " + getAdapterPosition());
+            bookmarksFragment.onBookmarkClicked(getAdapterPosition());
         }
     }
 
