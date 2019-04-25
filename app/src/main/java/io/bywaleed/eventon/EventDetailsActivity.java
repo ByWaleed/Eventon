@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,6 @@ public class EventDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Get Selected Event
         Intent intent = getIntent();
         final Event selected = intent.getExtras().getParcelable("SelectedEvent");
 
@@ -34,6 +34,37 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         displayEventDetails(selected);
 
+        initBookmark(selected);
+
+        initFooterNav(selected);
+
+        setupButtons(selected);
+    }
+
+    private void initFooterNav(final Event selected) {
+        // Footer Navigation & Listener
+        BottomNavigationView footerNavigation = findViewById(R.id.footer_navigation);
+        footerNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+
+                switch (item.getItemId()) {
+                    case R.id.nav_maps:
+                        footerNavMaps(selected.getMapLocation());
+                        return true;
+                    case R.id.nav_share:
+                        footerNavShare(selected);
+                        return true;
+                    case R.id.nav_booking:
+                        footerNavBooking(selected.getBooking());
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void initBookmark(final Event selected) {
         // Bookmark Button
         final FloatingActionButton bookmark_btn = (FloatingActionButton) findViewById(R.id.bookmark_btn);
 
@@ -70,27 +101,6 @@ public class EventDetailsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-        // Footer Navigation & Listener
-        BottomNavigationView footerNavigation = findViewById(R.id.footer_navigation);
-        footerNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-
-                switch (item.getItemId()) {
-                    case R.id.nav_maps:
-                        footerNavMaps(selected.getMapLocation());
-                        return true;
-                    case R.id.nav_share:
-                        footerNavShare(selected);
-                        return true;
-                    case R.id.nav_booking:
-                        footerNavBooking(selected.getBooking());
-                        return true;
-                }
-                return false;
-            }
-        });
     }
 
     private void footerNavMaps(String uri) {
@@ -117,7 +127,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void displayEventDetails(Event event){
+    private void displayEventDetails(Event event){
         // Title
         getSupportActionBar().setTitle(event.getTitle());
 
@@ -152,5 +162,61 @@ public class EventDetailsActivity extends AppCompatActivity {
         // Description
         TextView description = findViewById(R.id.event_description);
         description.setText(event.getDescription());
+    }
+
+    private void setupButtons(final Event selected) {
+        /*
+         * Links can customized be made to take the use to certain page or section of a page.
+         * Recommended to create attributes for each events e.g. specific urls
+         * */
+
+        // Event Date
+        Button event_date = (Button) findViewById(R.id.event_date);
+        event_date.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(selected.getBooking());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        // Event Time
+        Button event_time = (Button) findViewById(R.id.event_time);
+        event_time.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(selected.getBooking());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        // Event Location
+        Button event_location = (Button) findViewById(R.id.event_location);
+        event_location.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent mapsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(selected.getMapLocation()));
+                mapsIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapsIntent);
+            }
+        });
+
+        // Event Price
+        Button event_price = (Button) findViewById(R.id.event_price);
+        event_price.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(selected.getBooking());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
     }
 }
