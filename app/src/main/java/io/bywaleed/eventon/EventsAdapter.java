@@ -11,33 +11,33 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.eventsViewHolder> {
+public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.eViewHolder> {
 
     private Context eContext;
     private List<Event> eData;
-    private OnEventListner onEventListner;
+    private OnEventListener onEventListener;
 
-    public EventsAdapter(Context eContext, List<Event> eData, OnEventListner onEventListner) {
+    public EventsAdapter(Context eContext, List<Event> eData, OnEventListener onEventListener) {
         this.eContext = eContext;
         this.eData = eData;
-        this.onEventListner = onEventListner;
+        this.onEventListener = onEventListener;
     }
 
     @NonNull
     @Override
-    public eventsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public eViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         LayoutInflater inflater = LayoutInflater.from(eContext);
         View v = inflater.inflate(R.layout.events_rv_item, viewGroup, false);
-        return new eventsViewHolder(v, onEventListner);
+        return new eViewHolder(v, onEventListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull eventsViewHolder eventsViewHolder, int i) {
-        eventsViewHolder.background.setImageResource(eData.get(i).getBackground());
-        eventsViewHolder.logo.setImageResource(eData.get(i).getLogo());
-        eventsViewHolder.title.setText(eData.get(i).getTitle());
-        eventsViewHolder.date.setText(eData.get(i).getDate());
+    public void onBindViewHolder(@NonNull eViewHolder eViewHolder, int i) {
+        eViewHolder.background.setImageResource(eData.get(i).getBackground());
+        eViewHolder.logo.setImageResource(eData.get(i).getLogo());
+        eViewHolder.title.setText(eData.get(i).getTitle());
+        eViewHolder.date.setText(eData.get(i).getDate());
     }
 
     @Override
@@ -45,20 +45,20 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.eventsView
         return eData.size();
     }
 
-    public class eventsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class eViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView background, logo;
         TextView title, date;
-        OnEventListner onEventListner;
+        OnEventListener onEventListener;
 
-        public eventsViewHolder(@NonNull View itemView, OnEventListner onEventListner) {
+        public eViewHolder(@NonNull View itemView, OnEventListener onEventListener) {
             super(itemView);
 
             background = itemView.findViewById(R.id.event_background);
             logo = itemView.findViewById(R.id.event_logo);
             title = itemView.findViewById(R.id.event_title);
             date = itemView.findViewById(R.id.event_date);
-            this.onEventListner = onEventListner;
+            this.onEventListener = onEventListener;
 
             // Attach Event listener to Event
             itemView.setOnClickListener(this);
@@ -67,11 +67,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.eventsView
         // Event listener
         @Override
         public void onClick(View v) {
-            onEventListner.onEventClick(getAdapterPosition());
+            onEventListener.onEventClick(getAdapterPosition());
         }
     }
 
-    public interface OnEventListner{
+    public interface OnEventListener{
         void onEventClick(int position);
     }
 

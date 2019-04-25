@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, EventsAdapter.OnEventListner {
+        implements NavigationView.OnNavigationItemSelectedListener, EventsAdapter.OnEventListener {
 
     private List<Event> eList = new ArrayList<>();
 
@@ -99,6 +99,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.drawer_all_events) {
 
         } else if (id == R.id.drawer_bookmarks) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new BookmarksFragment()).commit();
 
         } else if (id == R.id.drawer_about_us) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
