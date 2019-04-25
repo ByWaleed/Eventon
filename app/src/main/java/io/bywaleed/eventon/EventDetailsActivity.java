@@ -34,11 +34,12 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         displayEventDetails(selected);
 
-        initBookmark(selected);
+        if (initBookmark(selected)) {
 
-        initFooterNav(selected);
+            initFooterNav(selected);
 
-        setupButtons(selected);
+            setupButtons(selected);
+        }
     }
 
     private void initFooterNav(final Event selected) {
@@ -50,7 +51,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.nav_maps:
-                        footerNavMaps(selected.getMapLocation());
+                        footerNavMaps(selected);
                         return true;
                     case R.id.nav_share:
                         footerNavShare(selected);
@@ -64,7 +65,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void initBookmark(final Event selected) {
+    private boolean initBookmark(final Event selected) {
         // Bookmark Button
         final FloatingActionButton bookmark_btn = (FloatingActionButton) findViewById(R.id.bookmark_btn);
 
@@ -101,12 +102,29 @@ public class EventDetailsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        return true;
     }
 
-    private void footerNavMaps(String uri) {
-        Intent mapsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+    private void footerNavMaps(final Event selected) {
+
+        String[] locations = selected.getMapLocation().split(",");
+
+        double latitude = Double.valueOf(locations[0]);
+        double longitude = Double.valueOf(locations[1]);
+
+        String label = selected.getTitle();
+        String uriBegin = "geo:" + latitude + "," + longitude;
+        String query = latitude + "," + longitude + "(" + label + ")";
+        String encodedQuery = Uri.encode(query);
+        String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
+        Uri uri = Uri.parse(uriString);
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+
+        /*Intent mapsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         mapsIntent.setPackage("com.google.android.apps.maps");
-        startActivity(mapsIntent);
+        startActivity(mapsIntent);*/
     }
 
     private void footerNavShare(Event selected) {
@@ -200,9 +218,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent mapsIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(selected.getMapLocation()));
-                mapsIntent.setPackage("com.google.android.apps.maps");
-                startActivity(mapsIntent);
+                footerNavMaps(selected);
             }
         });
 
