@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.bViewHolder>{
 
-    private ArrayList<Event> eData = new ArrayList<>(0);
+    private ArrayList<Event> eData;
     private Context eContext;
     private BookmarksFragment bookmarksFragment;
 
