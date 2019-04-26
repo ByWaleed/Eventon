@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +36,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.eViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull eViewHolder eViewHolder, int i) {
+
+        eViewHolder.background.setAnimation(AnimationUtils.loadAnimation(eContext,R.anim.transition_fade));
+        eViewHolder.logo.setAnimation(AnimationUtils.loadAnimation(eContext,R.anim.transition_slide));
+        eViewHolder.title.setAnimation(AnimationUtils.loadAnimation(eContext,R.anim.transition_slide));
+        eViewHolder.date.setAnimation(AnimationUtils.loadAnimation(eContext,R.anim.transition_slide));
+
         eViewHolder.background.setImageResource(eData.get(i).getBackground());
         eViewHolder.logo.setImageResource(eData.get(i).getLogo());
         eViewHolder.title.setText(eData.get(i).getTitle());
