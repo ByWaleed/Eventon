@@ -38,13 +38,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.eViewHolde
     public void onBindViewHolder(@NonNull eViewHolder eViewHolder, int i) {
 
         eViewHolder.background.setAnimation(AnimationUtils.loadAnimation(eContext,R.anim.transition_fade));
+        eViewHolder.gradient.setAnimation(AnimationUtils.loadAnimation(eContext,R.anim.transition_fade));
         eViewHolder.logo.setAnimation(AnimationUtils.loadAnimation(eContext,R.anim.transition_slide));
         eViewHolder.title.setAnimation(AnimationUtils.loadAnimation(eContext,R.anim.transition_slide));
         eViewHolder.date.setAnimation(AnimationUtils.loadAnimation(eContext,R.anim.transition_slide));
 
         eViewHolder.background.setImageResource(eData.get(i).getBackground());
         eViewHolder.logo.setImageResource(eData.get(i).getLogo());
-        eViewHolder.title.setText(eData.get(i).getTitle());
+        eViewHolder.title.setText(validTitle(eData.get(i).getTitle()));
         eViewHolder.date.setText(eData.get(i).getDate());
     }
 
@@ -53,16 +54,24 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.eViewHolde
         return eData.size();
     }
 
+    private String validTitle(String title) {
+        if (title.length() > 20) {
+            return title.substring(0, 18) + "...";
+        }
+        return title;
+    }
+
     // VIEW HOLDER CLASS
     public class eViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
-        ImageView background, logo;
+        ImageView background, logo, gradient;
         TextView title, date;
 
         public eViewHolder(@NonNull View itemView) {
             super(itemView);
 
             background = itemView.findViewById(R.id.event_background);
+            gradient = itemView.findViewById(R.id.event_image_gradient);
             logo = itemView.findViewById(R.id.event_logo);
             title = itemView.findViewById(R.id.event_title);
             date = itemView.findViewById(R.id.event_date);

@@ -5,12 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="250dp"
-    android:id="@+id/event_rv_item">
+    android:id="@+id/event_rv_item"
+    android:background="#000">
 
     <ImageView
         android:id="@+id/event_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#ececec"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +22,7 @@
         android:id="@+id/event_image_gradient"
         android:layout_width="match_parent"
         android:layout_height="125dp"
-        app:layout_constraintBottom_toBottomOf="@+id/event_background"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@drawable/event_image_gradient"
         tools:layout_editor_absoluteX="0dp" />
 

@@ -37,8 +37,4 @@ public class Bookmarks {
         }
         return -1;
     }
-
-    public int numberOfBookmarks() {
-        return bookmarks.size();
-    }
 }
