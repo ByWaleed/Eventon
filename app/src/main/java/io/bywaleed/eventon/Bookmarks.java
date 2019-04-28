@@ -28,8 +28,10 @@ public class Bookmarks {
     }
 
     public static Integer bookmarked(Event event){
-        Log.d("bookmarked", "title: " + event.getTitle());
-        Log.d("bookmarked", "size: " + bookmarks.size());
+        if (bookmarks == null) {
+            bookmarks = new ArrayList<>(0);
+        }
+
         if (bookmarks.size() > 0) {
             Integer position = 0;
             for (Event current : bookmarks) {

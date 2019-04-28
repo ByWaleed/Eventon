@@ -42,7 +42,6 @@ public class BookmarksFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        loadBookmarks();
 
         if (loadBookmarks()) {
             initRecyclerView();
@@ -55,15 +54,15 @@ public class BookmarksFragment extends Fragment{
         Bookmarks.loadFromPreferences(view.getContext());
         bookmarksList = Bookmarks.getBookmarks();
 
-        if (bookmarksList.size() > 0) {
-            return true;
-        } else {
+        if (bookmarksList == null) {
+            bookmarksList = new ArrayList<>(0);
             return false;
-        }
+        } else return bookmarksList.size() > 0;
     }
 
     private void initRecyclerView() {
         RecyclerView recyclerView = view.findViewById(R.id.bookmark_events_rv_list);
+        recyclerView.setVisibility(View.VISIBLE);
 
         BookmarksAdapter adapter = new BookmarksAdapter(getContext(), bookmarksList, this);
 
@@ -82,5 +81,6 @@ public class BookmarksFragment extends Fragment{
 
     private void noBookmarkedEventsError() {
         view.findViewById(R.id.no_bookmarks_tv).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.bookmark_events_rv_list).setVisibility(View.GONE);
     }
 }
