@@ -17,10 +17,6 @@ public class Event implements Parcelable {
     int background;
     int logo;
 
-
-    public Event() {
-    }
-
     public Event(String title, String description, String organisation, String date, String time, String booking, String location, String mapLocation, String price, int background, int logo) {
         this.title = title;
         this.description = description;
