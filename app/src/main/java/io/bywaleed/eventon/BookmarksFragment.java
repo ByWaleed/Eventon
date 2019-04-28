@@ -52,8 +52,8 @@ public class BookmarksFragment extends Fragment{
     }
 
     private boolean loadBookmarks() {
-        bookmarksList.clear();
-        bookmarksList.addAll(((BookmarkedEvents) getActivity().getApplicationContext()).getEventBookmarks().getBookmarks());
+        Bookmarks.loadFromPreferences(view.getContext());
+        bookmarksList = Bookmarks.getBookmarks();
 
         if (bookmarksList.size() > 0) {
             return true;

@@ -41,4 +41,6 @@
         in the local community. Users can brower through events, check their details along with
         saving events and other features.
     </string>
+    <string name="version">Version 1.0 - 26/04/2019</string>
+    <string name="credits">Created By: Waleed Islam</string>
 </resources>

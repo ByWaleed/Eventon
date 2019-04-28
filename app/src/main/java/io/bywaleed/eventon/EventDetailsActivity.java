@@ -19,9 +19,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class EventDetailsActivity extends AppCompatActivity {
 
-    public  Bookmarks bookmarks;
+    Boolean bookmarked = false;
+    EventDetailsActivity context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +75,15 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     private boolean initBookmark(final Event selected) {
         // Bookmark Button
-        final FloatingActionButton bookmark_btn = (FloatingActionButton) findViewById(R.id.bookmark_btn);
+        final FloatingActionButton bookmark_btn = findViewById(R.id.bookmark_btn);
 
         // Load previously saved bookmarks (global)
-        bookmarks = ((BookmarkedEvents) getApplicationContext()).getEventBookmarks();
+        Bookmarks.loadFromPreferences(context);
 
         // Change icon if event is already booked
-        if (bookmarks.bookmarked(selected) != -1){
+        if (Bookmarks.bookmarked(selected) != -1) {
             bookmark_btn.setImageResource(R.drawable.ic_bookmark_remove);
+            bookmarked = true;
         }
 
         // Bookmark Button Listener
@@ -87,21 +91,20 @@ public class EventDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String notification;
                 bookmark_btn.setImageDrawable(null);
-                Integer eventArrayPosition = bookmarks.bookmarked(selected);
+                String notification;
 
-                if (eventArrayPosition != -1){
-                    bookmarks.removeBookmark(eventArrayPosition);
+                if (bookmarked) {
+                    bookmarked = false;
+                    Bookmarks.removeBookmark(context, selected);
                     notification = "Event removed from your bookmarks.";
                     bookmark_btn.setImageResource(R.drawable.ic_bookmark);
                 } else {
-                    bookmarks.addBookmark(selected);
+                    bookmarked = true;
+                    Bookmarks.addBookmark(context, selected);
                     notification = "Event added to your bookmarks.";
                     bookmark_btn.setImageResource(R.drawable.ic_bookmark_remove);
                 }
-
-                ((BookmarkedEvents) getApplicationContext()).setEventBookmarks(bookmarks);
 
                 Snackbar.make(view, notification, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
