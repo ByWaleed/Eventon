@@ -2,6 +2,8 @@
 
 Android application for viewing and booking events in the local area.
 
+[Download APK (v1.0)](https://github.com/ByWaleed/Eventon/releases/download/1.0.0/eventon.apk)
+
 ![Eventon Screenshots](./screenshot.jpg)
 
 # ✨ Feature
